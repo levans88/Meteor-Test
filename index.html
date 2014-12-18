@@ -1,0 +1,34 @@
+<!-- simple-todos.html -->
+<head>
+  <title>Todo List</title>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Todo List</h1>
+        <form class="new-task">
+    	  <input type="text" name="text" placeholder="Type to add new tasks." />
+  		</form>
+    </header>
+
+    <ul>
+      {{#each tasks}} <!-- iterate through "tasks" helper from js-->
+        {{> task}}  <!-- and use "task" template to show items from the helper -->
+      {{/each}}
+    </ul>
+  </div>
+</body>
+
+<!-- this is the output destination, not a source of anything -->
+<template name="task">
+  <li class="{{#if checked}}checked{{/if}}">
+    
+
+    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+
+    <span class="text">{{text}}</span>
+
+    <button class="delete">&times;</button>
+  </li>
+</template>
