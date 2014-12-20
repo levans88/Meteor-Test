@@ -2,6 +2,8 @@
 Posts = new Mongo.Collection("posts");
 Tags = new Mongo.Collection("tags");
 
+//temporary test change
+
 if (Meteor.isClient) {
   // This code only runs on the client
   Template.body.helpers({
