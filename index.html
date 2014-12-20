@@ -1,34 +1,60 @@
 <!-- simple-todos.html -->
 <head>
-  <title>Todo List</title>
+  <title>To-do: Think of a better title.</title>
 </head>
 
 <body>
   <div class="container">
+    
     <header>
-      <h1>Todo List</h1>
-        <form class="new-task">
-    	  <input type="text" name="text" placeholder="Type to add new tasks." />
-  		</form>
+      <h1><strike>To-do: Think of a better title.</strike></h1>
+        <form class="new-post">
+          <table width="100%">
+            <td width="75%">
+              <textarea id="paste-textarea" name="text" placeholder="Type to add new content." rows="3"></textarea>
+            </td>
+            <td align="left" valign="top">
+              {{#each tags}}
+                {{> tag}}
+              {{/each}}
+            </td>
+          </table>
+          <div><!--<div class="postmenu">-->
+            <input type="submit" name="add" value="Add"/>
+          </div>
+  		  </form>
     </header>
 
     <ul>
-      {{#each tasks}} <!-- iterate through "tasks" helper from js-->
-        {{> task}}  <!-- and use "task" template to show items from the helper -->
+      {{#each posts}} <!-- iterate through "posts" helper from js-->
+        {{> post}}  <!-- and use "post" template to show items from the helper -->
       {{/each}}
     </ul>
   </div>
+
 </body>
 
 <!-- this is the output destination, not a source of anything -->
-<template name="task">
+<template name="post">
+  <!-- if the checked property has value of "true", use the "checked" class for displaying the post-->
   <li class="{{#if checked}}checked{{/if}}">
-    
+    <table width="100%">
+      <tr>
+        <td width="30px" align="left" valign="top">
+          <input type="checkbox" checked="{{checked}}" class="toggle-checked"/>
+        </td>
+        <td>
+          <span class="text">{{{text}}}</span>
+        </td>
+        <td width="5%" align="right" valign="top"><button class="delete">&times;</button></td>
+      </tr>
+    </table>
+  </li>
+</template>
 
-    <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
-
-    <span class="text">{{text}}</span>
-
-    <button class="delete">&times;</button>
+<template name="tag">
+  <li class="category-menu">
+    <span class="category">{{category}}</span>
+    <span class="tag">{{tags}}</span>
   </li>
 </template>

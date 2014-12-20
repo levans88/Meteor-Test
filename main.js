@@ -1,23 +1,30 @@
 // simple-todos.js
-Tasks = new Mongo.Collection("tasks");
-
+Posts = new Mongo.Collection("posts");
+Tags = new Mongo.Collection("tags");
 
 if (Meteor.isClient) {
   // This code only runs on the client
   Template.body.helpers({
-    tasks: function () {
-      return Tasks.find({}, {sort: {createdAt: -1}});  //-1 is descending
-    }  
+    posts: function () {
+      return Posts.find({}, {sort: {createdAt: -1}});  //-1 is descending
+    },  
+    tags: function () {
+      return Tags.find();
+    }
   });
 
 	Template.body.events({
-		"submit .new-task": function (event) {
+		"submit .new-post": function (event) {
 			console.log(event);
 		  // This function is called when the new task form is submitted
 
 		  var text = event.target.text.value;
-
-		  Tasks.insert({
+      // ***expression below may not handle other browsers entering line breaks***
+      text = text.replace(/&/g, '&amp');
+      text = text.replace(/</g, '&lt;');
+      text = text.replace(/>/g, '&gt;');
+		  text = text.replace(/\r?\n/g, '<br/>');
+      Posts.insert({
 		    text: text,	//we are inserting literally - "text: " ..., "createdAt: " ...
 		    createdAt: new Date() // current time
 		  });
@@ -30,16 +37,16 @@ if (Meteor.isClient) {
 		}
 	});
 
-	Template.task.events({
+	Template.post.events({
   "click .toggle-checked": function () {
     // Set the checked property to the opposite of its current value
-    Tasks.update(this._id, {$set: {checked: ! this.checked}});
+    Posts.update(this._id, {$set: {checked: ! this.checked}});
   },
   "click .delete": function () {
     var deleteConfirmed = confirm("Post will be permanently deleted. Are you sure?");
     //console.log(deleteConfirmed);
     if (deleteConfirmed) {
-    	Tasks.remove(this._id);	
+    	Posts.remove(this._id);	
     }
     
 
