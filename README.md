@@ -1,4 +1,4 @@
-lenny-home
-==========
+lenny-meteor
+============
 
-Meteor website to centralize documentation of my projects and learning experiences.
+A repository for testing Meteor and MongoDB. This is based on the "To-do list" tutorial on Meteor's website.  I am testing how I might build a knowledge base using this technology and in general just checking out Meteor.
